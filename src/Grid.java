@@ -8,9 +8,9 @@ public class Grid {
     private int gridArray[][];
     private int pieceCurrentHeight[];
 
-    public Grid(int width, int height){
-        this.width = width;
+    public Grid(int height, int width){
         this.height = height;
+        this.width = width;
         pieceCurrentHeight = new int[this.width];
         gridArray = new int[this.height][this.width];
     }
@@ -53,9 +53,9 @@ public class Grid {
      * @param x position
      * @param y position
      * @param color
-     * @throws InvalidColor
+     * @throws InvalidColor, ArrayIndexOutOfBoundsException
      */
-    public void addPiece(int x, int y, int color) throws InvalidColor{
+    public void addPiece(int x, int y, int color) throws InvalidColor, ArrayIndexOutOfBoundsException{
         if(color != YELLOW && color != RED){
             throw new InvalidColor();
         }
@@ -87,6 +87,9 @@ public class Grid {
 
         try {
             result = this.isWinningPieceVertical(x, y);
+            if(result == false){
+                result = this.isWinningPieceHorizontally(x, y);
+            }
         }
         catch (ArrayIndexOutOfBoundsException e){
             result = false;
@@ -110,5 +113,30 @@ public class Grid {
         }
 
         return (count == NUMBER_OF_WINNING_PIECES);
+    }
+
+    private boolean isWinningPieceHorizontally(int x, int y) throws ArrayIndexOutOfBoundsException{
+        int color = gridArray[x][y];
+        final int window = 4;
+
+        for(int j=0; j<window; j++) {
+            int count = 1;
+            int start = y - 3 + j;
+            int end = y+j;
+            for (int i = start; i < end; i++) {
+                if (i < 0 || i >= (width - 1)) {
+                    break;
+                }
+
+                if (gridArray[x][i] == color) {
+                    count++;
+                }
+            }
+            if(count == NUMBER_OF_WINNING_PIECES){
+                return true;
+            }
+        }
+
+        return false;
     }
 }
