@@ -3,6 +3,7 @@ public class Grid {
     private final int YELLOW = 1;
     private final int RED = 2;
     private final int NUMBER_OF_WINNING_PIECES = 4;
+    private final int WINDOW = 4;
     private int width;
     private int height;
     private int gridArray[][];
@@ -89,6 +90,12 @@ public class Grid {
             result = this.isWinningPieceVertical(x, y);
             if(result == false){
                 result = this.isWinningPieceHorizontally(x, y);
+                if(result == false){
+                    result = this.isWinningPieceDiagonalLeft(x,y);
+                    if(result == false){
+                        result = this.isWinningPieceDiagonalRight(x,y);
+                    }
+                }
             }
         }
         catch (ArrayIndexOutOfBoundsException e){
@@ -117,9 +124,8 @@ public class Grid {
 
     private boolean isWinningPieceHorizontally(int x, int y) throws ArrayIndexOutOfBoundsException{
         int color = gridArray[x][y];
-        final int window = 4;
 
-        for(int j=0; j<window; j++) {
+        for(int j = 0; j< WINDOW; j++) {
             int count = 1;
             int start = y - 3 + j;
             int end = y+j;
@@ -132,6 +138,70 @@ public class Grid {
                     count++;
                 }
             }
+            if(count == NUMBER_OF_WINNING_PIECES){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isWinningPieceDiagonalLeft(int x, int y) throws ArrayIndexOutOfBoundsException{
+        int color = gridArray[x][y];
+
+        for(int j = 0; j< WINDOW; j++) {
+            int count = 0;
+            int xcur = x-3+j;
+            int ycur = y-3+j;
+
+            for(int i=0; i< WINDOW; i++){
+                if (xcur < 0 || xcur >= height) {
+                    break;
+                }
+                if(ycur < 0 || ycur >= width ) {
+                    break;
+                }
+
+                if (gridArray[xcur][ycur] == color) {
+                    count++;
+                }
+
+                xcur++;
+                ycur++;
+            }
+
+            if(count == NUMBER_OF_WINNING_PIECES){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isWinningPieceDiagonalRight(int x, int y) throws ArrayIndexOutOfBoundsException{
+        int color = gridArray[x][y];
+
+        for(int j = 0; j< WINDOW; j++) {
+            int count = 0;
+            int xcur = x-3+j;
+            int ycur = y+3+j;
+
+            for(int i=0; i< WINDOW; i++){
+                if (xcur < 0 || xcur >= height) {
+                    break;
+                }
+                if(ycur < 0 || ycur >= width){
+                    break;
+                }
+
+                if (gridArray[xcur][ycur] == color) {
+                    count++;
+                }
+
+                xcur++;
+                ycur--;
+            }
+
             if(count == NUMBER_OF_WINNING_PIECES){
                 return true;
             }
