@@ -1,12 +1,6 @@
 import java.util.Scanner;
 
 public class Connect4 {
-    public static final String HUMAN = "human";
-    public static final String COMPUTER = "computer";
-    public static final int YELLOW = 1;
-    public static final int RED = 2;
-    public static boolean gameWon;
-
     public static void main(String[] args) {
         int counter = 1;
         final int GRID_HEIGHT = 6;
@@ -17,17 +11,17 @@ public class Connect4 {
         final String PLAYER2_TURN = "Player2 it's your turn now!!";
         String userChoice;
         Scanner input;
+        GameConstants constants = GameConstants.getInstance();
         Grid gameGrid = new Grid(GRID_HEIGHT,GRID_WIDTH);
-        Player player1 = new Player(YELLOW);
-        gameWon = false;
+        Player player1 = new Player(constants.getYELLOW());
 
         do{
             System.out.println(CHOOSE_HUMAN_OR_COMPUTER_PROMPT);
             input = new Scanner(System.in);
             userChoice = input.next().toLowerCase();
-        }while ((!userChoice.equals(HUMAN) && !userChoice.equals(COMPUTER) ));
+        }while ((!userChoice.equals(constants.getHUMAN()) && !userChoice.equals(constants.getCOMPUTER()) ));
 
-        Player player2 = new Player(RED, userChoice);
+        Player player2 = new Player(constants.getRED(), userChoice);
 
         do{
             gameGrid.printGrid();
@@ -40,12 +34,17 @@ public class Connect4 {
                 player1.play(gameGrid);
             }
             counter++;
-        }while (!gameGrid.isFull() && !gameWon);
+        }while (!gameGrid.isFull() &&
+                !player1.isWinner() &&
+                !player2.isWinner());
 
-        if(gameWon){
-            System.out.println("Congratulations you have won!!");
+        if(player1.isWinner()){
+            System.out.println("Congratulations Player1 you have won!!");
         }
-        else{
+        else if(player2.isWinner()){
+            System.out.println("Congratulations Player2 you have won!!");
+        }
+        else {
             System.out.println("Draw!!The game grid is full!!");
         }
 

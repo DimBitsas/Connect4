@@ -55,8 +55,10 @@ public class Grid {
      * @param color piece color
      * @throws InvalidColor, ArrayIndexOutOfBoundsException
      */
-    public void addPiece(int x, int y, int color) throws InvalidColor, ArrayIndexOutOfBoundsException{
-        if(color != Connect4.YELLOW && color != Connect4.RED){
+    public void addPiece(int x, int y, int color, Player player) throws InvalidColor, ArrayIndexOutOfBoundsException{
+        GameConstants constants = GameConstants.getInstance();
+
+        if(color != constants.getYELLOW() && color != constants.getRED()){
             throw new InvalidColor();
         }
 
@@ -64,7 +66,7 @@ public class Grid {
         piecesCurrentHeight[y]++;
 
         if(isWinningPiece(x,y)){
-            Connect4.gameWon = true;
+            player.setWinner(true);
         }
     }
 
@@ -102,10 +104,6 @@ public class Grid {
         }
         catch (ArrayIndexOutOfBoundsException e){
             result = false;
-        }
-
-        if(result == true){
-            Connect4.gameWon = true;
         }
 
         return result;

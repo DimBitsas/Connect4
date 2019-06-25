@@ -1,19 +1,21 @@
 import java.util.Scanner;
 
 public class Player {
-    int color;
-    String controlledBy;
-    private final String PROVIDE_PIECE_POSITION_COLOR = "Please provide Piece position (x,y) and color(1 or 2)";
-    private final String INVALID_PLAYER_COLOR = "Player color is invalid";
+    private int color;
+    private String controlledBy;
+    private boolean isWinner;
+    private final String PROVIDE_PIECE_POSITION_COLOR = "Please provide Piece position (x,y)";
 
     public Player(int color, String controlledBy) {
         this.color = color;
         this.controlledBy = controlledBy;
+        isWinner = false;
     }
 
     public Player(int color) {
         this.color = color;
-        this.controlledBy = Connect4.HUMAN;
+        this.controlledBy = GameConstants.getInstance().getHUMAN();
+        isWinner = false;
     }
 
     private void humanPlay(Grid grid){
@@ -28,7 +30,7 @@ public class Player {
             ypos = input.nextInt();
             if(grid.isValidMove(xpos, ypos)){
                 try {
-                    grid.addPiece(xpos, ypos, color);
+                    grid.addPiece(xpos, ypos, color, this);
                     continuePrompting = false;
                 } catch (InvalidColor invalidColor) {
                     continuePrompting = true;
@@ -48,7 +50,7 @@ public class Player {
                         grid.getColor(i,j)==color)
                 {
                     try {
-                        grid.addPiece(i,j,color);
+                        grid.addPiece(i,j,color,this);
                         return;
                     } catch (InvalidColor e) {
                         throw e;
@@ -64,7 +66,7 @@ public class Player {
             for(int j=0; j<grid.getWidth(); j++){
                 if(grid.isWinningPiece(i,j)){
                     try {
-                        grid.addPiece(i,j,color);
+                        grid.addPiece(i,j,color,this);
                         return;
                     } catch (InvalidColor e) {
                         throw e;
@@ -81,12 +83,12 @@ public class Player {
                 try {
                     if (grid.isPositionEmpty(i, j)){
                         if(i == (grid.getHeight()-1)){
-                            grid.addPiece(i,j,color);
+                            grid.addPiece(i,j,color,this);
                             return;
                         }
                         else{
                             if(!grid.isPositionEmpty(i+1, j)){
-                                grid.addPiece(i,j,color);
+                                grid.addPiece(i,j,color,this);
                                 return;
                             }
                         }
@@ -121,5 +123,13 @@ public class Player {
 
     public int getColor() {
         return color;
+    }
+
+    public boolean isWinner() {
+        return isWinner;
+    }
+
+    public void setWinner(boolean winner) {
+        isWinner = winner;
     }
 }
