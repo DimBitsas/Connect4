@@ -88,18 +88,15 @@ public class Grid {
     }
 
     public boolean isWinningPiece(int x, int y){
-        boolean result;
+        boolean result = false;
 
-        try {
-            result = this.isWinningPieceVertical(x, y);
-            if(!result){
-                result = this.isWinningPieceHorizontally(x, y);
-                if(!result){
-                    result = this.isWinningPieceDiagonalLeft(x,y);
-                    if(!result){
-                        result = this.isWinningPieceDiagonalRight(x,y);
-                    }
-                }
+        try{
+            if(this.isWinningPieceVertical(x, y) ||
+                    this.isWinningPieceHorizontally(x, y) ||
+                    this.isWinningPieceDiagonalLeft(x,y) ||
+                    this.isWinningPieceDiagonalRight(x,y))
+            {
+                result = true;
             }
         }
         catch (ArrayIndexOutOfBoundsException e){
