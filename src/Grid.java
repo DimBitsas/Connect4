@@ -36,14 +36,9 @@ public class Grid {
      * @return true valid, false invalid
      */
     public boolean isValidMove(int x, int y) throws ArrayIndexOutOfBoundsException{
-        if(gridArray[x][y] == NO_COLOR && x==(height-1)){
-            return true;
-        }
-        else if(gridArray[x][y] == NO_COLOR && gridArray[x+1][y] != NO_COLOR ){
-            return true;
-        }
 
-        return false;
+        return ((gridArray[x][y] == NO_COLOR && x==(height-1)) ||
+                (gridArray[x][y] == NO_COLOR && gridArray[x+1][y] != NO_COLOR ));
     }
 
     /**

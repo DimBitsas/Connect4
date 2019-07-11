@@ -28,15 +28,18 @@ public class Player {
 
             xpos = input.nextInt();
             ypos = input.nextInt();
-            if(grid.isValidMove(xpos, ypos)){
-                try {
+            try {
+                if(grid.isValidMove(xpos, ypos)) {
                     grid.addPiece(xpos, ypos, color, this);
                     continuePrompting = false;
-                } catch (InvalidColor invalidColor) {
+                }
+                else {
                     continuePrompting = true;
                 }
+            } catch (InvalidColor invalidColor) {
+                continuePrompting = true;
             }
-            else {
+            catch (ArrayIndexOutOfBoundsException e){
                 continuePrompting = true;
             }
 
