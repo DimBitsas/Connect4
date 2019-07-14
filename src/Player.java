@@ -36,10 +36,7 @@ public class Player {
                 else {
                     continuePrompting = true;
                 }
-            } catch (InvalidColor invalidColor) {
-                continuePrompting = true;
-            }
-            catch (ArrayIndexOutOfBoundsException e){
+            } catch (InvalidColor | ArrayIndexOutOfBoundsException e) {
                 continuePrompting = true;
             }
 
@@ -47,36 +44,33 @@ public class Player {
     }
 
     private void computerPlay(Grid grid) throws InvalidColor, ArrayIndexOutOfBoundsException{
+
+        GameConstants gameConstants = GameConstants.getInstance();
+
         for(int i=0; i<grid.getHeight(); i++){
-            for(int j=0; j<grid.getWidth(); j++){
-                if(grid.isWinningPiece(i,j) &&
-                        grid.getColor(i,j)==color)
-                {
-                    try {
+            for(int j=0; j<grid.getWidth(); j++) {
+                try{
+                    if(grid.checkPosition(i,j,color)) {
                         grid.addPiece(i,j,color,this);
                         return;
-                    } catch (InvalidColor e) {
-                        throw e;
                     }
-                    catch (ArrayIndexOutOfBoundsException e){
-                        throw e;
-                    }
+                }
+                catch (InvalidColor | ArrayIndexOutOfBoundsException e){
+                    throw e;
                 }
             }
         }
 
-        for(int i=0; i<grid.getHeight(); i++){
-            for(int j=0; j<grid.getWidth(); j++){
-                if(grid.isWinningPiece(i,j)){
-                    try {
+        for(int i=0; i<grid.getHeight(); i++) {
+            for (int j = 0; j < grid.getWidth(); j++) {
+                try{
+                    if(grid.checkPosition(i,j,gameConstants.getYELLOW())){
                         grid.addPiece(i,j,color,this);
                         return;
-                    } catch (InvalidColor e) {
-                        throw e;
                     }
-                    catch (ArrayIndexOutOfBoundsException e){
-                        throw e;
-                    }
+                }
+                catch (InvalidColor | ArrayIndexOutOfBoundsException e){
+                    throw e;
                 }
             }
         }
@@ -97,10 +91,7 @@ public class Player {
                         }
                     }
                 }
-                catch (InvalidColor e){
-                    throw e;
-                }
-                catch (ArrayIndexOutOfBoundsException e){
+                catch (InvalidColor | ArrayIndexOutOfBoundsException e){
                     throw e;
                 }
             }

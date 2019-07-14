@@ -82,8 +82,21 @@ public class Grid {
         return true;
     }
 
+    /**
+     * Checks if the piece at (x,y) position
+     * created a line of four
+     * (four pieces with the same color)
+     *
+     * @param x position
+     * @param y position
+     * @return true winning, false not winning
+     */
     public boolean isWinningPiece(int x, int y){
         boolean result = false;
+
+        if(gridArray[x][y] == NO_COLOR){
+            return false;
+        }
 
         try{
             if(this.isWinningPieceVertical(x, y) ||
@@ -122,10 +135,10 @@ public class Grid {
         int color = gridArray[x][y];
 
         for(int j = 0; j< WINDOW; j++) {
-            int count = 1;
+            int count = 0;
             int start = y - 3 + j;
             int end = y+j;
-            for (int i = start; i < end; i++) {
+            for (int i = start; i <= end; i++) {
                 if (i < 0 || i >= (width - 1)) {
                     break;
                 }
@@ -234,5 +247,33 @@ public class Grid {
      */
     public boolean isPositionEmpty(int x ,int y){
         return gridArray[x][y] == NO_COLOR;
+    }
+
+    /**
+     * Check if adding piece with the specific
+     * Color at (x,y) position creates a line of four
+     * It does not add the piece at the grid
+     *
+     * @param x position
+     * @param y position
+     * @param color piece color
+     * @return true piece at x,y creates line of four, false it does not
+     */
+    public boolean checkPosition(int x, int y, int color) throws ArrayIndexOutOfBoundsException{
+
+        if(color == NO_COLOR ||
+                gridArray[x][y] != NO_COLOR) {
+            return false;
+        }
+
+        gridArray[x][y] = color;
+        piecesCurrentHeight[y]++;
+
+        boolean result = isWinningPiece(x,y);
+
+        gridArray[x][y] = NO_COLOR;//Remove color
+        piecesCurrentHeight[y]--;
+
+        return result;
     }
 }
