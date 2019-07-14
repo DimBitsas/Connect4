@@ -115,10 +115,6 @@ public class Player {
         }
     }
 
-    public int getColor() {
-        return color;
-    }
-
     public boolean isWinner() {
         return isWinner;
     }
