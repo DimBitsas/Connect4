@@ -35,7 +35,7 @@ public class Grid {
      * @param y position
      * @return true valid, false invalid
      */
-    public boolean isValidMove(int x, int y) throws ArrayIndexOutOfBoundsException{
+    private boolean isValidMove(int x, int y) throws ArrayIndexOutOfBoundsException{
 
         return ((gridArray[x][y] == NO_COLOR && x==(height-1)) ||
                 (gridArray[x][y] == NO_COLOR && gridArray[x+1][y] != NO_COLOR ));
@@ -49,9 +49,14 @@ public class Grid {
      * @param y position
      * @param color piece color
      * @throws InvalidColor, ArrayIndexOutOfBoundsException
+     * @return true piece added, false piece not added
      */
-    public void addPiece(int x, int y, int color, Player player) throws InvalidColor, ArrayIndexOutOfBoundsException{
+    public boolean addPiece(int x, int y, int color, Player player) throws InvalidColor, ArrayIndexOutOfBoundsException{
         GameConstants constants = GameConstants.getInstance();
+
+        if(!isValidMove(x,y)){
+            return false;
+        }
 
         if(color != constants.getYELLOW() && color != constants.getRED()){
             throw new InvalidColor();
@@ -63,6 +68,8 @@ public class Grid {
         if(isWinningPiece(x,y)){
             player.setWinner(true);
         }
+
+        return true;
     }
 
     /**
@@ -139,7 +146,7 @@ public class Grid {
             int start = y - 3 + j;
             int end = y+j;
             for (int i = start; i <= end; i++) {
-                if (i < 0 || i >= (width - 1)) {
+                if (i < 0 || i > (width - 1)) {
                     break;
                 }
 
@@ -225,28 +232,6 @@ public class Grid {
 
     public int getHeight() {
         return height;
-    }
-
-    /**
-     * Get color from specific position
-     *
-     * @param x position
-     * @param y position
-     * @return color
-     */
-    public int getColor(int x, int y){
-        return gridArray[x][y];
-    }
-
-    /**
-     * Check if specific position is empty of color
-     *
-     * @param x position
-     * @param y position
-     * @return true no color, false color
-     */
-    public boolean isPositionEmpty(int x ,int y){
-        return gridArray[x][y] == NO_COLOR;
     }
 
     /**

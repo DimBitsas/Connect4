@@ -29,8 +29,7 @@ public class Player {
             xpos = input.nextInt();
             ypos = input.nextInt();
             try {
-                if(grid.isValidMove(xpos, ypos)) {
-                    grid.addPiece(xpos, ypos, color, this);
+                if(grid.addPiece(xpos, ypos, color, this)) {
                     continuePrompting = false;
                 }
                 else {
@@ -43,52 +42,49 @@ public class Player {
         }while (continuePrompting);
     }
 
-    private void computerPlay(Grid grid) throws InvalidColor, ArrayIndexOutOfBoundsException{
-
-        GameConstants gameConstants = GameConstants.getInstance();
+    /**
+     * Scan grid for winning position (Player or opponent)
+     * In case that a winning position is found then the piece
+     * is added at the specific position
+     *
+     * @param grid Game Grid
+     * @param scanColor Color(Player or opponent)
+     * @return true winning position found, not found
+     */
+    private boolean scanGridForWinningPosition(Grid grid, int scanColor){
 
         for(int i=0; i<grid.getHeight(); i++){
             for(int j=0; j<grid.getWidth(); j++) {
                 try{
-                    if(grid.checkPosition(i,j,color)) {
-                        grid.addPiece(i,j,color,this);
-                        return;
+                    if(grid.checkPosition(i,j,scanColor) &&
+                            grid.addPiece(i,j,color,this)) {
+                        return true;
                     }
                 }
                 catch (InvalidColor | ArrayIndexOutOfBoundsException e){
-                    throw e;
+                    System.out.println(e.getMessage());
+                    return false;
                 }
             }
         }
 
-        for(int i=0; i<grid.getHeight(); i++) {
-            for (int j = 0; j < grid.getWidth(); j++) {
-                try{
-                    if(grid.checkPosition(i,j,gameConstants.getYELLOW())){
-                        grid.addPiece(i,j,color,this);
-                        return;
-                    }
-                }
-                catch (InvalidColor | ArrayIndexOutOfBoundsException e){
-                    throw e;
-                }
-            }
+        return false;
+    }
+
+    private void computerPlay(Grid grid) throws InvalidColor, ArrayIndexOutOfBoundsException{
+
+        GameConstants gameConstants = GameConstants.getInstance();
+
+        if(scanGridForWinningPosition(grid,color) ||
+                scanGridForWinningPosition(grid, gameConstants.getYELLOW())){
+            return;
         }
 
         for(int i=0; i<grid.getHeight(); i++){
             for(int j=0; j<grid.getWidth(); j++){
                 try {
-                    if (grid.isPositionEmpty(i, j)){
-                        if(i == (grid.getHeight()-1)){
-                            grid.addPiece(i,j,color,this);
-                            return;
-                        }
-                        else{
-                            if(!grid.isPositionEmpty(i+1, j)){
-                                grid.addPiece(i,j,color,this);
-                                return;
-                            }
-                        }
+                    if(grid.addPiece(i,j,color,this)) {
+                        return;
                     }
                 }
                 catch (InvalidColor | ArrayIndexOutOfBoundsException e){
@@ -97,7 +93,7 @@ public class Player {
             }
         }
 
-        System.out.println("Computer play error!!No move implemented");
+        System.out.println("Computer play error!!No move!!");
     }
 
     public void play(Grid grid) {
