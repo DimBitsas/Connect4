@@ -4,7 +4,6 @@ public class Player {
     private int color;
     private String controlledBy;
     private boolean isWinner;
-    private final String PROVIDE_PIECE_POSITION_COLOR = "Please provide Piece position (x,y)";
 
     public Player(int color, String controlledBy) {
         this.color = color;
@@ -20,9 +19,9 @@ public class Player {
 
     private void humanPlay(Grid grid){
         int xpos, ypos;
-        boolean continuePrompting;
+        final String PROVIDE_PIECE_POSITION_COLOR = "Please provide Piece position (x,y)";
 
-        do {
+        while(true) {
             System.out.println(PROVIDE_PIECE_POSITION_COLOR);
             Scanner input = new Scanner(System.in);
 
@@ -30,16 +29,14 @@ public class Player {
             ypos = input.nextInt();
             try {
                 if(grid.addPiece(xpos, ypos, color, this)) {
-                    continuePrompting = false;
+                    break;
                 }
-                else {
-                    continuePrompting = true;
-                }
+                System.out.println("Invalid position");
             } catch (InvalidColor | ArrayIndexOutOfBoundsException e) {
-                continuePrompting = true;
+                System.out.println("Could not add piece at "+xpos+" "+ypos);
             }
 
-        }while (continuePrompting);
+        }
     }
 
     /**
