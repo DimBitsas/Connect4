@@ -37,7 +37,7 @@ public class GridTest {
 
     @org.junit.Test
     public void addPieceAtValidPosition() throws InvalidColor, ArrayIndexOutOfBoundsException{
-        assertTrue(grid.addPiece(5,0, gameConstants.getYELLOW(),player));
+        assertTrue(grid.addPiece(5,0, player));
     }
 
     @org.junit.Test
@@ -45,10 +45,10 @@ public class GridTest {
         Grid gridWithVerticalLineOfFour = new Grid(6,7);
         Player player = new Player(gameConstants.getYELLOW());
 
-        gridWithVerticalLineOfFour.addPiece(5,0,gameConstants.getYELLOW(),player);
-        gridWithVerticalLineOfFour.addPiece(4,0,gameConstants.getYELLOW(),player);
-        gridWithVerticalLineOfFour.addPiece(3,0,gameConstants.getYELLOW(),player);
-        gridWithVerticalLineOfFour.addPiece(2,0,gameConstants.getYELLOW(),player);
+        gridWithVerticalLineOfFour.addPiece(5,0,player);
+        gridWithVerticalLineOfFour.addPiece(4,0,player);
+        gridWithVerticalLineOfFour.addPiece(3,0,player);
+        gridWithVerticalLineOfFour.addPiece(2,0,player);
 
         assertTrue(gridWithVerticalLineOfFour.isWinningPiece(2,0));
     }
@@ -58,10 +58,10 @@ public class GridTest {
         Grid gridWithHorizontalLineOfFour = new Grid(6,7);
         Player player = new Player(gameConstants.getYELLOW());
 
-        gridWithHorizontalLineOfFour.addPiece(5,0,gameConstants.getYELLOW(),player);
-        gridWithHorizontalLineOfFour.addPiece(5,1,gameConstants.getYELLOW(),player);
-        gridWithHorizontalLineOfFour.addPiece(5,2,gameConstants.getYELLOW(),player);
-        gridWithHorizontalLineOfFour.addPiece(5,3,gameConstants.getYELLOW(),player);
+        gridWithHorizontalLineOfFour.addPiece(5,0,player);
+        gridWithHorizontalLineOfFour.addPiece(5,1,player);
+        gridWithHorizontalLineOfFour.addPiece(5,2,player);
+        gridWithHorizontalLineOfFour.addPiece(5,3,player);
 
         assertTrue(gridWithHorizontalLineOfFour.isWinningPiece(5,3));
     }
@@ -72,20 +72,20 @@ public class GridTest {
         Player player = new Player(gameConstants.getYELLOW());
         Player otherPlayer = new Player(gameConstants.getRED());
 
-        gridWithDiagonalLeftLineOfFour.addPiece(5,0,gameConstants.getRED(),otherPlayer);
-        gridWithDiagonalLeftLineOfFour.addPiece(5,1,gameConstants.getRED(),otherPlayer);
-        gridWithDiagonalLeftLineOfFour.addPiece(5,2,gameConstants.getRED(),otherPlayer);
+        gridWithDiagonalLeftLineOfFour.addPiece(5,0,otherPlayer);
+        gridWithDiagonalLeftLineOfFour.addPiece(5,1,otherPlayer);
+        gridWithDiagonalLeftLineOfFour.addPiece(5,2,otherPlayer);
 
-        gridWithDiagonalLeftLineOfFour.addPiece(4,0,gameConstants.getYELLOW(),player);
-        gridWithDiagonalLeftLineOfFour.addPiece(4,1,gameConstants.getRED(),otherPlayer);
-        gridWithDiagonalLeftLineOfFour.addPiece(5,0,gameConstants.getYELLOW(),player);
+        gridWithDiagonalLeftLineOfFour.addPiece(4,0,player);
+        gridWithDiagonalLeftLineOfFour.addPiece(4,1,otherPlayer);
+        gridWithDiagonalLeftLineOfFour.addPiece(5,0,player);
 
-        gridWithDiagonalLeftLineOfFour.addPiece(3,0,gameConstants.getRED(),otherPlayer);
+        gridWithDiagonalLeftLineOfFour.addPiece(3,0,otherPlayer);
 
-        gridWithDiagonalLeftLineOfFour.addPiece(3,1,gameConstants.getYELLOW(),player);
-        gridWithDiagonalLeftLineOfFour.addPiece(2,0,gameConstants.getYELLOW(),player);
-        gridWithDiagonalLeftLineOfFour.addPiece(4,2,gameConstants.getYELLOW(),player);
-        gridWithDiagonalLeftLineOfFour.addPiece(5,3,gameConstants.getYELLOW(),player);
+        gridWithDiagonalLeftLineOfFour.addPiece(3,1,player);
+        gridWithDiagonalLeftLineOfFour.addPiece(2,0,player);
+        gridWithDiagonalLeftLineOfFour.addPiece(4,2,player);
+        gridWithDiagonalLeftLineOfFour.addPiece(5,3,player);
 
         assertTrue(gridWithDiagonalLeftLineOfFour.isWinningPiece(5, 3));
     }
@@ -97,19 +97,19 @@ public class GridTest {
         Player otherPlayer = new Player(gameConstants.getRED());
 
 
-        gridWithDiagonalRightLineOfFour.addPiece(5,1,gameConstants.getYELLOW(),player);
-        gridWithDiagonalRightLineOfFour.addPiece(5,2,gameConstants.getRED(),otherPlayer);
-        gridWithDiagonalRightLineOfFour.addPiece(5,3,gameConstants.getYELLOW(),player);
+        gridWithDiagonalRightLineOfFour.addPiece(5,1,player);
+        gridWithDiagonalRightLineOfFour.addPiece(5,2,otherPlayer);
+        gridWithDiagonalRightLineOfFour.addPiece(5,3,player);
 
-        gridWithDiagonalRightLineOfFour.addPiece(4,2,gameConstants.getRED(),otherPlayer);
-        gridWithDiagonalRightLineOfFour.addPiece(4,3,gameConstants.getRED(),otherPlayer);
+        gridWithDiagonalRightLineOfFour.addPiece(4,2,otherPlayer);
+        gridWithDiagonalRightLineOfFour.addPiece(4,3,otherPlayer);
 
-        gridWithDiagonalRightLineOfFour.addPiece(3,3,gameConstants.getYELLOW(),player);
+        gridWithDiagonalRightLineOfFour.addPiece(3,3,player);
 
-        gridWithDiagonalRightLineOfFour.addPiece(5,0,gameConstants.getYELLOW(),player);
-        gridWithDiagonalRightLineOfFour.addPiece(4,1,gameConstants.getYELLOW(),player);
-        gridWithDiagonalRightLineOfFour.addPiece(3,2,gameConstants.getYELLOW(),player);
-        gridWithDiagonalRightLineOfFour.addPiece(2,3,gameConstants.getYELLOW(),player);
+        gridWithDiagonalRightLineOfFour.addPiece(5,0,player);
+        gridWithDiagonalRightLineOfFour.addPiece(4,1,player);
+        gridWithDiagonalRightLineOfFour.addPiece(3,2,player);
+        gridWithDiagonalRightLineOfFour.addPiece(2,3,player);
 
         assertTrue(gridWithDiagonalRightLineOfFour.isWinningPiece(2,3));
     }
@@ -119,9 +119,9 @@ public class GridTest {
         Grid grid = new Grid(6,7);
         Player player = new Player(gameConstants.getYELLOW());
 
-        grid.addPiece(5,0,gameConstants.getYELLOW(),player);
-        grid.addPiece(5,1,gameConstants.getYELLOW(),player);
-        grid.addPiece(5,2,gameConstants.getYELLOW(),player);
+        grid.addPiece(5,0,player);
+        grid.addPiece(5,1,player);
+        grid.addPiece(5,2,player);
 
         assertTrue(grid.checkPosition(5,3,gameConstants.getYELLOW()));
     }
@@ -131,7 +131,7 @@ public class GridTest {
         Grid grid = new Grid(6,7);
         Player player = new Player(gameConstants.getYELLOW());
 
-        grid.addPiece(5,0,gameConstants.getYELLOW(),player);
+        grid.addPiece(5,0,player);
 
         assertFalse(grid.checkPosition(5,1,gameConstants.getYELLOW()));
     }

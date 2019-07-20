@@ -28,7 +28,7 @@ public class Player {
             xpos = input.nextInt();
             ypos = input.nextInt();
             try {
-                if(grid.addPiece(xpos, ypos, color, this)) {
+                if(grid.addPiece(xpos,ypos,this)) {
                     break;
                 }
                 System.out.println("Invalid position");
@@ -54,7 +54,7 @@ public class Player {
             for(int j=0; j<grid.getWidth(); j++) {
                 try{
                     if(grid.checkPosition(i,j,scanColor) &&
-                            grid.addPiece(i,j,color,this)) {
+                            grid.addPiece(i,j,this)) {
                         return true;
                     }
                 }
@@ -80,7 +80,7 @@ public class Player {
         for(int i=0; i<grid.getHeight(); i++){
             for(int j=0; j<grid.getWidth(); j++){
                 try {
-                    if(grid.addPiece(i,j,color,this)) {
+                    if(grid.addPiece(i,j,this)) {
                         return;
                     }
                 }
@@ -114,5 +114,9 @@ public class Player {
 
     public void setWinner(boolean winner) {
         isWinner = winner;
+    }
+
+    public int getColor() {
+        return color;
     }
 }

@@ -47,22 +47,23 @@ public class Grid {
      *
      * @param x position
      * @param y position
-     * @param color piece color
+     * @param player player
      * @throws InvalidColor, ArrayIndexOutOfBoundsException
      * @return true piece added, false piece not added
      */
-    public boolean addPiece(int x, int y, int color, Player player) throws InvalidColor, ArrayIndexOutOfBoundsException{
+    public boolean addPiece(int x, int y, Player player) throws InvalidColor, ArrayIndexOutOfBoundsException{
         GameConstants constants = GameConstants.getInstance();
 
         if(!isValidMove(x,y)){
             return false;
         }
 
-        if(color != constants.getYELLOW() && color != constants.getRED()){
+        if(player.getColor() != constants.getYELLOW() &&
+                player.getColor() != constants.getRED()){
             throw new InvalidColor();
         }
 
-        gridArray[x][y] = color;
+        gridArray[x][y] = player.getColor();
         piecesCurrentHeight[y]++;
 
         if(isWinningPiece(x,y)){
