@@ -6,13 +6,15 @@ public class GridTest {
 
     private Grid grid;
     private GameConstants gameConstants;
-    private Player player;
+    private Player playerOne;
+    private Player playerTwo;
 
     @Before
     public void setUp(){
         grid = new Grid(6,7);
         gameConstants = GameConstants.getInstance();
-        player = new Player(gameConstants.getYELLOW());
+        playerOne = new Player(gameConstants.getYELLOW());
+        playerTwo = new Player(gameConstants.getRED());
     }
 
     @org.junit.Test
@@ -37,18 +39,17 @@ public class GridTest {
 
     @org.junit.Test
     public void addPieceAtValidPosition() throws InvalidColor, ArrayIndexOutOfBoundsException{
-        assertTrue(grid.addPiece(5,0, player));
+        assertTrue(grid.addPiece(5,0, playerOne));
     }
 
     @org.junit.Test
     public void winningWithVerticalLineOfFour() throws InvalidColor, ArrayIndexOutOfBoundsException{
         Grid gridWithVerticalLineOfFour = new Grid(6,7);
-        Player player = new Player(gameConstants.getYELLOW());
 
-        gridWithVerticalLineOfFour.addPiece(5,0,player);
-        gridWithVerticalLineOfFour.addPiece(4,0,player);
-        gridWithVerticalLineOfFour.addPiece(3,0,player);
-        gridWithVerticalLineOfFour.addPiece(2,0,player);
+        gridWithVerticalLineOfFour.addPiece(5,0, playerOne);
+        gridWithVerticalLineOfFour.addPiece(4,0, playerOne);
+        gridWithVerticalLineOfFour.addPiece(3,0, playerOne);
+        gridWithVerticalLineOfFour.addPiece(2,0, playerOne);
 
         assertTrue(gridWithVerticalLineOfFour.isWinningPiece(2,0));
     }
@@ -56,12 +57,11 @@ public class GridTest {
     @org.junit.Test
     public void winningWithHorizontalLineOfFour() throws InvalidColor, ArrayIndexOutOfBoundsException{
         Grid gridWithHorizontalLineOfFour = new Grid(6,7);
-        Player player = new Player(gameConstants.getYELLOW());
 
-        gridWithHorizontalLineOfFour.addPiece(5,0,player);
-        gridWithHorizontalLineOfFour.addPiece(5,1,player);
-        gridWithHorizontalLineOfFour.addPiece(5,2,player);
-        gridWithHorizontalLineOfFour.addPiece(5,3,player);
+        gridWithHorizontalLineOfFour.addPiece(5,0, playerOne);
+        gridWithHorizontalLineOfFour.addPiece(5,1, playerOne);
+        gridWithHorizontalLineOfFour.addPiece(5,2, playerOne);
+        gridWithHorizontalLineOfFour.addPiece(5,3, playerOne);
 
         assertTrue(gridWithHorizontalLineOfFour.isWinningPiece(5,3));
     }
@@ -69,23 +69,21 @@ public class GridTest {
     @org.junit.Test
     public void winningWithDiagonalLeftLineOfFour() throws InvalidColor, ArrayIndexOutOfBoundsException{
         Grid gridWithDiagonalLeftLineOfFour = new Grid(6,7);
-        Player player = new Player(gameConstants.getYELLOW());
-        Player otherPlayer = new Player(gameConstants.getRED());
 
-        gridWithDiagonalLeftLineOfFour.addPiece(5,0,otherPlayer);
-        gridWithDiagonalLeftLineOfFour.addPiece(5,1,otherPlayer);
-        gridWithDiagonalLeftLineOfFour.addPiece(5,2,otherPlayer);
+        gridWithDiagonalLeftLineOfFour.addPiece(5,0, playerTwo);
+        gridWithDiagonalLeftLineOfFour.addPiece(5,1, playerTwo);
+        gridWithDiagonalLeftLineOfFour.addPiece(5,2, playerTwo);
 
-        gridWithDiagonalLeftLineOfFour.addPiece(4,0,player);
-        gridWithDiagonalLeftLineOfFour.addPiece(4,1,otherPlayer);
-        gridWithDiagonalLeftLineOfFour.addPiece(5,0,player);
+        gridWithDiagonalLeftLineOfFour.addPiece(4,0, playerOne);
+        gridWithDiagonalLeftLineOfFour.addPiece(4,1, playerTwo);
+        gridWithDiagonalLeftLineOfFour.addPiece(5,0, playerOne);
 
-        gridWithDiagonalLeftLineOfFour.addPiece(3,0,otherPlayer);
+        gridWithDiagonalLeftLineOfFour.addPiece(3,0, playerTwo);
 
-        gridWithDiagonalLeftLineOfFour.addPiece(3,1,player);
-        gridWithDiagonalLeftLineOfFour.addPiece(2,0,player);
-        gridWithDiagonalLeftLineOfFour.addPiece(4,2,player);
-        gridWithDiagonalLeftLineOfFour.addPiece(5,3,player);
+        gridWithDiagonalLeftLineOfFour.addPiece(3,1, playerOne);
+        gridWithDiagonalLeftLineOfFour.addPiece(2,0, playerOne);
+        gridWithDiagonalLeftLineOfFour.addPiece(4,2, playerOne);
+        gridWithDiagonalLeftLineOfFour.addPiece(5,3, playerOne);
 
         assertTrue(gridWithDiagonalLeftLineOfFour.isWinningPiece(5, 3));
     }
@@ -93,23 +91,20 @@ public class GridTest {
     @org.junit.Test
     public void winningWithDiagonalRightLineOfFour() throws InvalidColor, ArrayIndexOutOfBoundsException{
         Grid gridWithDiagonalRightLineOfFour = new Grid(6,7);
-        Player player = new Player(gameConstants.getYELLOW());
-        Player otherPlayer = new Player(gameConstants.getRED());
 
+        gridWithDiagonalRightLineOfFour.addPiece(5,1, playerOne);
+        gridWithDiagonalRightLineOfFour.addPiece(5,2, playerTwo);
+        gridWithDiagonalRightLineOfFour.addPiece(5,3, playerOne);
 
-        gridWithDiagonalRightLineOfFour.addPiece(5,1,player);
-        gridWithDiagonalRightLineOfFour.addPiece(5,2,otherPlayer);
-        gridWithDiagonalRightLineOfFour.addPiece(5,3,player);
+        gridWithDiagonalRightLineOfFour.addPiece(4,2, playerTwo);
+        gridWithDiagonalRightLineOfFour.addPiece(4,3, playerTwo);
 
-        gridWithDiagonalRightLineOfFour.addPiece(4,2,otherPlayer);
-        gridWithDiagonalRightLineOfFour.addPiece(4,3,otherPlayer);
+        gridWithDiagonalRightLineOfFour.addPiece(3,3, playerOne);
 
-        gridWithDiagonalRightLineOfFour.addPiece(3,3,player);
-
-        gridWithDiagonalRightLineOfFour.addPiece(5,0,player);
-        gridWithDiagonalRightLineOfFour.addPiece(4,1,player);
-        gridWithDiagonalRightLineOfFour.addPiece(3,2,player);
-        gridWithDiagonalRightLineOfFour.addPiece(2,3,player);
+        gridWithDiagonalRightLineOfFour.addPiece(5,0, playerOne);
+        gridWithDiagonalRightLineOfFour.addPiece(4,1, playerOne);
+        gridWithDiagonalRightLineOfFour.addPiece(3,2, playerOne);
+        gridWithDiagonalRightLineOfFour.addPiece(2,3, playerOne);
 
         assertTrue(gridWithDiagonalRightLineOfFour.isWinningPiece(2,3));
     }
@@ -117,11 +112,10 @@ public class GridTest {
     @org.junit.Test
     public void checkPositionWinningPiece() throws InvalidColor, ArrayIndexOutOfBoundsException{
         Grid grid = new Grid(6,7);
-        Player player = new Player(gameConstants.getYELLOW());
 
-        grid.addPiece(5,0,player);
-        grid.addPiece(5,1,player);
-        grid.addPiece(5,2,player);
+        grid.addPiece(5,0, playerOne);
+        grid.addPiece(5,1, playerOne);
+        grid.addPiece(5,2, playerOne);
 
         assertTrue(grid.checkPosition(5,3,gameConstants.getYELLOW()));
     }
@@ -129,9 +123,8 @@ public class GridTest {
     @org.junit.Test
     public void checkPositionNotWinningPiece() throws InvalidColor, ArrayIndexOutOfBoundsException{
         Grid grid = new Grid(6,7);
-        Player player = new Player(gameConstants.getYELLOW());
 
-        grid.addPiece(5,0,player);
+        grid.addPiece(5,0, playerOne);
 
         assertFalse(grid.checkPosition(5,1,gameConstants.getYELLOW()));
     }
