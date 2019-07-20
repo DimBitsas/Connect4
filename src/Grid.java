@@ -263,7 +263,20 @@ public class Grid {
         return result;
     }
 
-    public void setGridArray(int[][] gridArray) {
-        this.gridArray = gridArray;
+    /**
+     * Fill all grid positions
+     * @param color color
+     */
+    public boolean createFullGrid(int color){
+        if(color == NO_COLOR){
+            return false;
+        }
+
+        for(int i=0; i<height; i++){
+            for(int j=0; j<width; j++){
+                gridArray[i][j] = color;
+            }
+        }
+        return true;
     }
 }

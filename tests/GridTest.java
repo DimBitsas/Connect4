@@ -18,16 +18,10 @@ public class GridTest {
     }
 
     @org.junit.Test
-    public void isFull() {
-        int[][] fullGridArray = new int[6][7];
+    public void isFull() throws InvalidColor,ArrayIndexOutOfBoundsException{
+        Grid grid = new Grid(6,7);
 
-        for(int i=0; i<6; i++){
-            for(int j=0; j<7; j++){
-                fullGridArray[i][j] = gameConstants.getYELLOW();
-            }
-        }
-
-        grid.setGridArray(fullGridArray);
+        grid.createFullGrid(gameConstants.getYELLOW());
 
         assertTrue(grid.isFull());
     }
