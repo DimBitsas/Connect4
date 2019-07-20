@@ -115,7 +115,7 @@ public class Grid {
             }
         }
         catch (ArrayIndexOutOfBoundsException e){
-            result = false;
+            System.out.println("Array out of bounds");
         }
 
         return result;
@@ -200,7 +200,7 @@ public class Grid {
         for(int j = 0; j< WINDOW; j++) {
             int count = 0;
             int xcur = x-3+j;
-            int ycur = y+3+j;
+            int ycur = y+3-j;
 
             for(int i=0; i< WINDOW; i++){
                 if (xcur < 0 || xcur >= height) {
@@ -260,5 +260,9 @@ public class Grid {
         piecesCurrentHeight[y]--;
 
         return result;
+    }
+
+    public void setGridArray(int[][] gridArray) {
+        this.gridArray = gridArray;
     }
 }
