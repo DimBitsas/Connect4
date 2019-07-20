@@ -5,22 +5,14 @@ import static org.junit.Assert.*;
 public class GridTest {
 
     private Grid grid;
-    private int[][] emptyGridArray;
     private GameConstants gameConstants;
     private Player player;
 
     @Before
     public void setUp(){
         grid = new Grid(6,7);
-        emptyGridArray = new int[6][7];
         gameConstants = GameConstants.getInstance();
         player = new Player(gameConstants.getYELLOW());
-
-        for(int i=0; i<6; i++){
-            for(int j=0; j<7; j++){
-                emptyGridArray[i][j] = 0;
-            }
-        }
     }
 
     @org.junit.Test
@@ -40,15 +32,11 @@ public class GridTest {
 
     @org.junit.Test
     public void isNotFull() {
-        grid.setGridArray(emptyGridArray);
-
         assertFalse(grid.isFull());
     }
 
     @org.junit.Test
     public void addPieceAtValidPosition() throws InvalidColor, ArrayIndexOutOfBoundsException{
-        grid.setGridArray(emptyGridArray);
-
         assertTrue(grid.addPiece(5,0, gameConstants.getYELLOW(),player));
     }
 
