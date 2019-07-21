@@ -32,7 +32,7 @@ public class Player {
                     break;
                 }
                 System.out.println("Invalid position");
-            } catch (InvalidColor | ArrayIndexOutOfBoundsException e) {
+            } catch (InvalidColorException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("Could not add piece at "+xpos+" "+ypos);
             }
 
@@ -58,7 +58,7 @@ public class Player {
                         return true;
                     }
                 }
-                catch (InvalidColor | ArrayIndexOutOfBoundsException e){
+                catch (InvalidColorException | ArrayIndexOutOfBoundsException e){
                     System.out.println(e.getMessage());
                     return false;
                 }
@@ -71,10 +71,10 @@ public class Player {
     /**
      * @param grid Game grid
      * @return true if piece was added at random position, false it ws not added
-     * @throws InvalidColor Exception
+     * @throws InvalidColorException Exception
      * @throws ArrayIndexOutOfBoundsException Exception
      */
-    private boolean isPieceAddedAtRandomPosition(Grid grid) throws InvalidColor, ArrayIndexOutOfBoundsException{
+    private boolean isPieceAddedAtRandomPosition(Grid grid) throws InvalidColorException, ArrayIndexOutOfBoundsException{
         for (int i = 0; i < grid.getHeight(); i++) {
             for (int j = 0; j < grid.getWidth(); j++) {
                 if (grid.addPiece(i, j, this)) {
@@ -86,7 +86,7 @@ public class Player {
         return false;
     }
 
-    private void computerPlay(Grid grid) throws InvalidColor, ArrayIndexOutOfBoundsException, ComputerMoveException{
+    private void computerPlay(Grid grid) throws InvalidColorException, ArrayIndexOutOfBoundsException, ComputerMoveException{
         GameConstants gameConstants = GameConstants.getInstance();
 
         if(scanGridForWinningPosition(grid,color) ||
@@ -105,7 +105,7 @@ public class Player {
         } else {
             try {
                 computerPlay(grid);
-            }catch (ComputerMoveException | InvalidColor | ArrayIndexOutOfBoundsException e){
+            }catch (ComputerMoveException | InvalidColorException | ArrayIndexOutOfBoundsException e){
                 System.out.println(e.getMessage());
                 System.exit(-1);
             }

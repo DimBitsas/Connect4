@@ -31,12 +31,12 @@ public class GridTest {
     }
 
     @org.junit.Test
-    public void addPieceAtValidPosition() throws InvalidColor, ArrayIndexOutOfBoundsException{
+    public void addPieceAtValidPosition() throws InvalidColorException, ArrayIndexOutOfBoundsException{
         assertTrue(grid.addPiece(5,0, playerOne));
     }
 
     @Test
-    public void winningWithVerticalLineOfFour() throws InvalidColor, ArrayIndexOutOfBoundsException{
+    public void winningWithVerticalLineOfFour() throws InvalidColorException, ArrayIndexOutOfBoundsException{
         grid.addPiece(5,0, playerOne);
         grid.addPiece(4,0, playerOne);
         grid.addPiece(3,0, playerOne);
@@ -46,7 +46,7 @@ public class GridTest {
     }
 
     @Test
-    public void winningWithHorizontalLineOfFour() throws InvalidColor, ArrayIndexOutOfBoundsException{
+    public void winningWithHorizontalLineOfFour() throws InvalidColorException, ArrayIndexOutOfBoundsException{
         grid.addPiece(5,0, playerOne);
         grid.addPiece(5,1, playerOne);
         grid.addPiece(5,2, playerOne);
@@ -56,7 +56,7 @@ public class GridTest {
     }
 
     @Test
-    public void winningWithDiagonalLeftLineOfFour() throws InvalidColor, ArrayIndexOutOfBoundsException{
+    public void winningWithDiagonalLeftLineOfFour() throws InvalidColorException, ArrayIndexOutOfBoundsException{
         grid.addPiece(5,0, playerTwo);
         grid.addPiece(5,1, playerTwo);
         grid.addPiece(5,2, playerTwo);
@@ -76,7 +76,7 @@ public class GridTest {
     }
 
     @Test
-    public void winningWithDiagonalRightLineOfFour() throws InvalidColor, ArrayIndexOutOfBoundsException{
+    public void winningWithDiagonalRightLineOfFour() throws InvalidColorException, ArrayIndexOutOfBoundsException{
         grid.addPiece(5,1, playerOne);
         grid.addPiece(5,2, playerTwo);
         grid.addPiece(5,3, playerOne);
@@ -95,7 +95,7 @@ public class GridTest {
     }
 
     @org.junit.Test
-    public void checkPositionWinningPiece() throws InvalidColor, ArrayIndexOutOfBoundsException{
+    public void checkPositionWinningPiece() throws InvalidColorException, ArrayIndexOutOfBoundsException{
         grid.addPiece(5,0, playerOne);
         grid.addPiece(5,1, playerOne);
         grid.addPiece(5,2, playerOne);
@@ -104,7 +104,7 @@ public class GridTest {
     }
 
     @org.junit.Test
-    public void checkPositionNotWinningPiece() throws InvalidColor, ArrayIndexOutOfBoundsException{
+    public void checkPositionNotWinningPiece() throws InvalidColorException, ArrayIndexOutOfBoundsException{
         grid.addPiece(5,0, playerOne);
 
         assertFalse(grid.checkPosition(5,1,gameConstants.getYELLOW()));
