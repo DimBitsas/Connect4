@@ -68,29 +68,35 @@ public class Player {
         return false;
     }
 
-    private void computerPlay(Grid grid) throws InvalidColor, ArrayIndexOutOfBoundsException{
-
-        GameConstants gameConstants = GameConstants.getInstance();
-
-        if(scanGridForWinningPosition(grid,color) ||
-                scanGridForWinningPosition(grid, gameConstants.getYELLOW())){
-            return;
-        }
-
-        for(int i=0; i<grid.getHeight(); i++){
-            for(int j=0; j<grid.getWidth(); j++){
-                try {
-                    if(grid.addPiece(i,j,this)) {
-                        return;
-                    }
-                }
-                catch (InvalidColor | ArrayIndexOutOfBoundsException e){
-                    throw e;
+    /**
+     * @param grid Game grid
+     * @return true if piece was added at random position, false it ws not added
+     * @throws InvalidColor Exception
+     * @throws ArrayIndexOutOfBoundsException Exception
+     */
+    private boolean isPieceAddedAtRandomPosition(Grid grid) throws InvalidColor, ArrayIndexOutOfBoundsException{
+        for (int i = 0; i < grid.getHeight(); i++) {
+            for (int j = 0; j < grid.getWidth(); j++) {
+                if (grid.addPiece(i, j, this)) {
+                    return true;
                 }
             }
         }
 
-        System.out.println("Computer play error!!No move!!");
+        return false;
+    }
+
+    private void computerPlay(Grid grid) throws InvalidColor, ArrayIndexOutOfBoundsException, ComputerMoveException{
+        GameConstants gameConstants = GameConstants.getInstance();
+
+        if(scanGridForWinningPosition(grid,color) ||
+                scanGridForWinningPosition(grid, gameConstants.getYELLOW()) ||
+                isPieceAddedAtRandomPosition(grid)){
+            System.out.println("Computer move is completed!!\n");
+        }
+        else{
+            throw new ComputerMoveException("Error!!\nComputer failed to move piece");
+        }
     }
 
     public void play(Grid grid) {
@@ -99,11 +105,9 @@ public class Player {
         } else {
             try {
                 computerPlay(grid);
-            } catch (InvalidColor invalidColor) {
-                System.out.println("Error: Invalid color");
-            }
-            catch (ArrayIndexOutOfBoundsException e){
+            }catch (ComputerMoveException | InvalidColor | ArrayIndexOutOfBoundsException e){
                 System.out.println(e.getMessage());
+                System.exit(-1);
             }
         }
     }

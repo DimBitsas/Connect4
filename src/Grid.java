@@ -60,7 +60,7 @@ public class Grid {
 
         if(player.getColor() != constants.getYELLOW() &&
                 player.getColor() != constants.getRED()){
-            throw new InvalidColor();
+            throw new InvalidColor("Error!!\nInvalid color");
         }
 
         gridArray[x][y] = player.getColor();
